@@ -162,6 +162,22 @@ export default function TopicSuggesterOutput({ result }) {
             <span>{importing ? "Loading..." : "Draft your introduction in CiteWise"}</span>
             <FaArrowRight size={13} aria-hidden="true" />
           </button>
+
+          <button
+            type="button"
+            className="topic-citewise-link topic-citewise-link-large mt-2"
+            style={{ background: "rgba(91, 91, 214, 0.15)", border: "1px solid #5b5bd6", color: "#a5b4fc", marginTop: "8px" }}
+            aria-label="Proceed to S.M.A.R.T. Research Goals"
+            onClick={async () => {
+              await handleDraftIntroduction();
+              localStorage.setItem(`citewise.${group_id}.step`, "3");
+              localStorage.setItem(`citewise.${group_id}.maxUnlockedStep`, "3");
+            }}
+            disabled={importing}
+          >
+            <span>{importing ? "Loading..." : "Proceed to SMART Goals"}</span>
+            <FaArrowRight size={13} aria-hidden="true" />
+          </button>
         </div>
 
         <div

@@ -262,6 +262,40 @@ export default function GroupCard({
           >
             {importing ? "Loading..." : "CiteWise →"}
           </button>
+
+          <button
+            type="button"
+            onClick={async () => {
+              await handleOpenCiteWise();
+              localStorage.setItem(gk("step"), "3");
+              localStorage.setItem(gk("maxUnlockedStep"), "3");
+            }}
+            disabled={importing}
+            title="Proceed to S.M.A.R.T. Research Goals"
+            aria-label={`Proceed to SMART Goals for ${name}`}
+            className="btn w-100 fw-bold mt-2"
+            style={{
+              backgroundColor: "transparent",
+              border: "1px solid #5b5bd6",
+              color: "#a5b4fc",
+              borderRadius: "10px",
+              fontFamily: "'Poppins', sans-serif",
+              fontSize: "0.82rem",
+              transition: "background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease",
+            }}
+            onMouseEnter={(event) => {
+              event.currentTarget.style.background = "rgba(91, 91, 214, 0.2)";
+              event.currentTarget.style.color = "#ffffff";
+              event.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.background = "transparent";
+              event.currentTarget.style.color = "#a5b4fc";
+              event.currentTarget.style.transform = "translateY(0)";
+            }}
+          >
+            Proceed to SMART Goals →
+          </button>
         </div>
       </div>
       {/* Confirm Delete Modal */}
