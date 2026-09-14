@@ -4,6 +4,7 @@ import GlobalNavigationBar from "./shared/components/GlobalNavigationBar";
 import WorkspaceImportLayout from "./module1/catalyst-import/components/WorkspaceImportLayout";
 import ValidationDashboardLayout from "./module2/literature-review/components/ValidationDashboardLayout";
 import SynthesisDraftModule from "./module3/synthesis-draft/components/SynthesisDraftModule";
+import SmartGoalsLayout from "./module4/SmartGoalsLayout";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -143,6 +144,14 @@ export default function CiteWiseApp() {
 
           {step === 2 && (
             <SynthesisDraftModule
+              sessionId={sessionId}
+              onStepChange={handleModuleStepChange}
+            />
+          )}
+
+          {step === 3 && (
+            <SmartGoalsLayout
+              groupId={groupId}
               sessionId={sessionId}
               onStepChange={handleModuleStepChange}
             />

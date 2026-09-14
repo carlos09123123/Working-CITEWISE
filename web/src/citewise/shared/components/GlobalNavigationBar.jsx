@@ -1,4 +1,4 @@
-const STEPS = ["Data Import", "AI Assessment", "Generate Introduction"];
+const STEPS = ["Data Import", "AI Assessment", "Generate Introduction", "S.M.A.R.T. Goals"];
 
 export default function GlobalNavigationBar({ currentStep = 0, maxUnlockedStep = 0, onNavigate, onLogoClick, onBack }) {
   return (
