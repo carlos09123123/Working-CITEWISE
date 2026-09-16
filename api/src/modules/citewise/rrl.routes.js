@@ -460,6 +460,24 @@ router.post('/upload', upload.array('files'), async (req, res) => {
     return res.status(400).json({ success: false, message: 'At least one PDF is required', data: null });
   }
 
+  // NEW: Require a research_baselines row for this session before accepting
+  // uploads. Without it, scoringPipeline() will always bail with
+  // "Missing semantic baseline" and the document will never be scored.
+  const { data: baselineRows } = await supabase
+    .from('research_baselines')
+    .select('id')
+    .eq('session_id', sessionId)
+    .limit(1);
+
+  if (!baselineRows?.length) {
+    console.warn(`[upload] rejected: no research_baselines for session ${sessionId}`);
+    return res.status(400).json({
+      success: false,
+      message: 'Workspace is not fully set up — no research baseline found for this session. Please complete the workspace setup first.',
+      data: null,
+    });
+  }
+
   const results = [];
   let accepted = 0;
 
