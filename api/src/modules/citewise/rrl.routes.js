@@ -39,9 +39,8 @@ function sha256(buf) {
 function sanitizeText(raw) {
   if (!raw) return '';
   return raw
-    .replace(//g, '')
-    .replace(/[\x01-\x08\x0b\x0c\x0e-\x1f\x7f]/g, ' ')
-    .replace(/[￾￿]/g, '')
+    .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, ' ')
+    .replace(/[\uFFFE\uFFFF]/g, '')
     .replace(/[ \t\v\f]+/g, ' ')
     .replace(/\r\n?/g, '\n')
     .replace(/\n{3,}/g, '\n\n')
@@ -293,7 +292,7 @@ export async function scoringPipeline(docId, sessionId) {
 }
 
 // ── AI metadata extraction pipeline ─────────────────────────────────────
-// Called after scoring completes. Sends the first 4 000 chars of the parsed
+// Called after scoring completes. Sends the first 8 000 chars of the parsed
 // text to the n8n metadata extractor webhook, which uses an AI model to
 // extract title, authors, year, journal, and DOI. The result is stored in
 // citation_metadata_json on the document row so synthesis.routes.js can use
