@@ -24,7 +24,8 @@ const allowedOrigins = [
   'http://localhost:5173',               // Local development
   'http://localhost:3000',
   'https://catalyst-nu-gilt.vercel.app',  // Production frontend
-  'https://citewise-seven.vercel.app'
+  'https://citewise-seven.vercel.app',
+  'https://working-citewise.onrender.com'  // Deployed Render frontend
 ];
 
 if (process.env.FRONTEND_URL) {
@@ -41,6 +42,7 @@ app.use(
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
+      console.warn('[CORS] Blocked origin:', origin, '| Allowed:', allowedOrigins);
       return callback(new Error('Not allowed by CORS'), false);
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
